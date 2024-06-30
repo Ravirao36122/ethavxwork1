@@ -1,0 +1,28 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract exampleContract {
+    uint public value;
+
+    event ValueSet(uint newValue);
+    event ValueDivided(uint newValue);
+    event FundsWithdrawn(uint amount, uint remainingBalance);
+
+    function setValue(uint _value) public {
+        require(_value > 0, "Value must be greater than 0");
+        value = _value;
+        emit ValueSet(_value);
+    }
+
+    function divideByTwo() public {
+        require(value % 2 == 0, "Value must be even");
+        value /= 2;
+        emit ValueDivided(value);
+    }
+
+    function withdrawFunds(uint amount) public {
+        require(amount <= value, "Insufficient funds");
+        value -= amount;
+        emit FundsWithdrawn(amount, value);
+    }
+}
